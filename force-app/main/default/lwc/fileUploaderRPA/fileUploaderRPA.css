@@ -1,0 +1,111 @@
+
+
+.showbtns{
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.runbtn{
+    margin-left: 25%;
+}
+
+.slds-table thead th {
+    position: sticky;
+    top: 0;
+    background-color:rgb(190, 190, 190);   
+    z-index: 1;
+    height: 40px; 
+    font-size: 20px; 
+    text-align: center;
+}  
+   
+.mainT{
+    border-top:2px solid rgb(190, 190, 190); 
+}
+
+.childT{
+    border-top:none; 
+}
+
+.slds-table tbody tr:hover {
+    cursor: default;
+    background-color: white;
+}
+.slds-col{
+    padding: 0%;    
+}
+.slds-grid.slds-wrap {
+    display: flex;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* Make sure the columns fit correctly within the grid */
+.slds-col.slds-size_1-of-2 {
+    flex: 1;
+    width: 50%;
+    max-width: 50%; 
+    box-sizing: border-box; 
+}
+
+/* Set table and image/PDF container to take full height */
+.slds-col .content-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure image/PDF and table are vertically aligned */
+.slds-col img, .slds-col iframe {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.slds-table-wrapper {
+    max-height: 530px; 
+    overflow-y: auto; 
+}
+
+.uploader {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.maindiv{
+    margin: 0 auto;
+    width: auto;    
+    max-width: 70%;
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: center; 
+    margin-top: 15px;
+    gap: 10px;                 
+    right: 20px;               
+    bottom: 20px;              
+}
+.buttons lightning-button{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.Title {
+    text-align: center;            
+    background-color:#ffe9ec;     
+    padding: 10px;                 
+    font-weight: bolder;           
+    font-size: 25px;  
+    margin-top: -25px;      
+    border-bottom: 2px solid black;      
+}
+
+.slds-card__header {
+    display: none; 
+}

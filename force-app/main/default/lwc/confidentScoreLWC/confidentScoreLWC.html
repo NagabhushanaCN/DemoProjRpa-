@@ -1,0 +1,54 @@
+<template>
+    <lightning-file-upload
+        label="Upload File"
+        accept={fileFormats}
+        record-id={recordId}
+        onuploadfinished={handleUploadFinished}>
+    </lightning-file-upload>   
+
+    <template if:true={showViewButton}>
+        <lightning-button label="View" onclick={handleViewFile} class="slds-m-top_medium"></lightning-button>
+    </template>
+   
+    <template if:true={showRunButton}>
+        <lightning-button label="Run" onclick={handleRunFile} class="slds-m-top_medium"></lightning-button>
+    </template>
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Processing file..." size="medium"></lightning-spinner>
+    </template>
+
+    <template if:true={showTable}>
+        <lightning-card title="Parsed Data">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <div class="slds-truncate">Key</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate">Value</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={keyValueLst} for:item="item">
+                        <tr key={item.key}>
+                            <td><div class="slds-truncate">{item.key}</div></td>
+                            <td><div class="slds-truncate">{item.value}</div></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </lightning-card>
+    </template>
+
+    <template if:true={showFilePreview}>
+        <template if:true={isImageFile}>
+            <img src={currentFileUrl} width="100%" height="auto" class="slds-m-top_medium" />
+        </template>
+        <template if:false={isImageFile}>
+            <iframe src={currentFileUrl} width="100%" height="500px" class="slds-m-top_medium"></iframe>
+        </template>
+    </template>
+</template>

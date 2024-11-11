@@ -1,0 +1,112 @@
+<template>
+    <div class="maindiv">
+    <lightning-card title="" variant="">
+        <!-- File Upload Component -->
+         <div class="Title">
+            <h1>Validate Sample Pre-Filled Form</h1>
+         </div>
+         <template if:true={showuploader}>  
+         <div class="uploader">
+        <lightning-file-upload
+            label="Upload File"
+            accept={fileFormats}
+            record-id={recordId}
+            onuploadfinished={handleUploadFinished}>    
+        </lightning-file-upload>
+
+        <!-- Spinner -->
+        <template if:true={showSpinner}>
+            <lightning-spinner alternative-text="Processing file..." size="medium"></lightning-spinner>
+        </template>  
+       </div>
+    </template>
+        <div class="showbtns">
+        <!-- View Button to show file preview (image or PDF) -->
+        <template if:true={showViewButton}>
+            <lightning-button label="View Form" onclick={handleViewFile} class="showbtn"></lightning-button>
+        </template>
+        <template if:true={showRunButton}>
+            <lightning-button label="Run Extraction" onclick={handleRunFile} class="runbtn"></lightning-button>
+        </template>
+        </div>
+        <br>
+      <!-- image and table starts -->
+        <template if:true={showFilePreview}>
+            <div class="slds-grid slds-wrap slds-gutters">
+                
+                <!-- Image or PDF on the left (half-width) -->
+                <template if:true={showFilePreview}>
+                    <div class="slds-col slds-size_1-of-2 " style="border: 2px solid black;">
+                        <template if:true={isImageFile}>
+                            <!-- Display image inside a framed div with a fixed height of 530px -->
+                            <div style="border: 2px solid #d8dde6; height: 530px; display: flex; justify-content: center; align-items: center;">
+                                <img src={currentFileUrl} style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                            </div>
+                        </template>
+                        <template if:false={isImageFile}>
+                            <!-- Display PDF -->
+                            <iframe src={currentFileUrl} width="100%" height="530px"></iframe>
+                        </template>
+                    </div>
+                </template>
+                <!-- Table on the right (half-width) -->
+                <template if:true={showTable}>
+                    <div class="slds-col slds-size_1-of-2" style="border: 2px solid black;">
+                        <!-- <lightning-card> -->
+                            <div  class="slds-table-wrapper">
+                            <table class="slds-table slds-table_cell-buffer" >
+                                <thead style="height: 40px;">
+                                    <tr>
+                                        <th scope="col" class="sticky-header">
+                                            <div class="slds-truncate">Form Fields</div>
+                                        </th>
+                                        <th scope="col" class="sticky-header">
+                                            <div class="slds-truncate">Form Value</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={webhookDataList} for:item="item">
+                                        <!-- Parent Row -->
+                                        <tr class="mainT" key={item.key}>
+                                            <td data-key={item.key} onclick={callchildTable}>
+                                                <div class="slds-truncate">{item.key}</div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate">
+                                                    <lightning-input value={item.value} variant="label-hidden"></lightning-input>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                
+                                        <!-- Conditionally Render Child Table -->
+                                        <template if:true={item.childTable}>
+                                            <tr class="childT" key={item.key}>
+                                                <td></td>
+                                                <td>
+                                                    <c-child-table></c-child-table>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- </lightning-card> -->
+                    </div>
+                </template>
+                
+            </div>
+        </template>
+         <template if:true={showButtons}>
+             <div class="buttons">
+                <lightning-button label="Back" onclick={handleback}></lightning-button>
+                <!-- <lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button> -->
+                <template if:true={showSubmit}>
+                    <lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
+                 </template>
+             </div>
+         </template>
+    </lightning-card>
+</div>
+</template>

@@ -1,0 +1,111 @@
+<template>
+    <template if:true={TestFileUploderRpa}>
+    <div class="container">
+        <!-- Header Section with Add New and Save/Delete Buttons -->
+        <template if:true={head}>
+            <div class="header-container">
+                <div class="table-header">
+                    <span>Configure Document Action</span>
+                    <div class="button-container">
+                        <lightning-button label="Add New Form Mapping" variant="neutral" class="button-text" onclick={handleAddInsurance}></lightning-button>
+                        
+                        <!-- Save Button for Go Live -->
+                        <template if:true={showSaveButton}>
+                            <lightning-button label="Save" variant="brand" class="button-text" onclick={handleSave}></lightning-button>
+                        </template>
+
+                        <!-- Delete Button for deletion -->
+                        <template if:false={showSaveButton}>
+                            <lightning-button label="Delete" variant="destructive" disabled={isDeleteDisabled} class="button-text" onclick={handleDelete}></lightning-button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Data Table for Form Types -->
+        <template if:true={showTable}>
+            <template if:true={insuranceTypes}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Select">
+                                    <input type="checkbox" data-id="selectAll" onchange={handleSelectAll} />
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="S.No">S.No</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Go live">Go live</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Form Name">Form Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Edit">Edit</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Test">Test</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={insuranceTypes} for:item="record">
+                            <tr key={record.Id}>
+                                <!-- Selection Checkbox -->
+                                <td>
+                                    <input type="checkbox" data-id={record.Id} data-account-id={record.Id} onchange={handleRowSelection} disabled={disableGeneralCheckboxes} />
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={record.serialNumber}>{record.serialNumber}</div>
+                                </td>
+
+                                <!-- Go Live Checkbox -->
+                                <td>
+                                    <lightning-input type="checkbox" class="go-live-checkbox" data-id={record.Id} data-account-id={record.Id} checked={record.Go_Live__c} onchange={handleRowGolive} ></lightning-input>
+                                </td>
+
+                                <!-- Form Name -->
+                                <td>
+                                    <div class="slds-truncate" title={record.accountName}>{record.name}</div>
+                                </td>
+
+                                <!-- Edit Button -->
+                                <td>
+                                    <lightning-button label="Edit" class="btn" data-id={record.Id} onclick={handleEdit}></lightning-button>
+                                </td>
+
+                                <!-- Test Button -->
+                                <td>
+                                    <lightning-button label="Test" data-id={record.Id} data-name={record.name} onclick={handleTest}></lightning-button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+
+            <!-- Error Handling -->
+            <template if:true={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+        </template>
+
+        <!-- Include the HelloComponent here -->
+        <template if:true={showHelloComponent}>
+            <c-hello-component recordid={recordId} formname={formName} onbackbuttonclick={handleBackFromChild}></c-hello-component>
+        </template>
+
+        
+        <!-- Add Insurance Section -->
+        <template if:true={showAddInsurance}>
+            <c-insurance-path-as-parent onbackbuttonclick={handleBackFromChild} onnotifytohomes={handleNotifyfrompasp} message-from-parent={messageFromParent}></c-insurance-path-as-parent>
+        </template>
+    </div>
+</template>
+<template if:false={TestFileUploderRpa}>
+    <c-file-uploader-r-p-a onbackbuttonclick={handleBackFromChild} onnotifytohomes={handleNotifyfrompasp}></c-file-uploader-r-p-a>
+</template>
+</template>

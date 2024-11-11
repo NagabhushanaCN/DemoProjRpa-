@@ -1,0 +1,20 @@
+.slds-table tr:hover, .slds-table tbody tr:hover {
+    cursor: default;
+    background-color: white;
+    border: none;
+    border-collapse: collapse;
+}
+/*  background-color: inherit; */
+.slds-table {  
+    border-collapse: collapse;
+}    
+
+.slds-table th, .slds-table td {
+    border: none; /* Removes all borders */
+}
+
+.slds-table thead th {
+    border-bottom: none; 
+    background-color: white;
+}
+
